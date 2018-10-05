@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<script language="javascript">
+	function kalkulatu(){
+		var bat = document.getElementById("bat").value
+        var bi = document.getElementById("bi").value
+        var op = document.getElementById("op").value
+        var em = document.getElementById("em").value
+       	var i
+        if(op == "+"){
+       		i = parseInt(bat) + parseInt(bi);
+        	if(i == em){	
+        		alert("ZUZENA!");
+            }else{alert("OKERRA!");}
+        }else if(op == "-"){
+       		i = parseInt(bat) - parseInt(bi);
+        	if(i == em){	
+        		alert("ZUZENA!");
+            }else{alert("OKERRA!");}
+        }else if(op == "*"){
+       		i = parseInt(bat) * parseInt(bi);
+        	if(i == em){	
+        		alert("ZUZENA!");
+            }else{alert("OKERRA!");}
+        }else if(op == "/"){
+       		i = parseInt(bat) / parseInt(bi);
+        	if(i == em){	
+        		alert("ZUZENA!");
+            }else{alert("OKERRA!");}
+        }
+        
+                
+                
+    }
+</script>
+</head>
+<body>
+
+<h2>KALKULAGAILUA</h2>
+
+<form>
+  <fieldset>
+  Lehenengo zenbakia:<br>
+  <input type="text" id="bat">
+  <br>
+   Operadorea:<br>
+  <select id="op">
+  		<option value="+">
+        +
+        </option>
+        <option value="-">
+        -
+        </option>>
+        <option value="*">
+        *
+        </option>
+        <option value="/">
+        /
+        </option>
+  </select>
+  <br>
+  Bigarren zenbakia:<br>
+  <input type="text" id="bi">
+  <br>
+  Espero duzun emaitza:<br>
+  <input type="text" id="em">
+  <br><br>
+  <input type="button" value="Kalkulatu" onclick="return kalkulatu()"> 
+  <input type="reset" value="Reset">
+  </fieldset>
+</form> 
+
+
+</body>
+</html>
