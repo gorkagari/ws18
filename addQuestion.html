@@ -8,8 +8,7 @@
 					$("#irudia").click(function aukeratuArgazkia(){
 					
 					})
-			})
-			function boolean konprobatuDena(){
+					$("#galderenF").submit(function  konprobatuDena(){
 				var email = $("#email").val()
 				var galdera = $("#galdera").val()
 				var okerra1 = $("#okerra1").val()
@@ -21,22 +20,31 @@
 				if (email.length == 0||galdera.length == 0||okerra1.length == 0||okerra2.length == 0||okerra3.length == 0||zailtasuna.length == 0||gaia.length == 0){
 					alert("(*) ikurra duten atalak nahitaez bete behar dira!");
 					denaOndo=false;
-				}
+				}else{
 				if (parseInt(zailtasuna)<0 || parseInt(zailtasuna)>5 || (parseFloat(zailtasuna))%1 != 0){
 					alert("Zailtasuna 0-tik 5-erako osokoa izan behar da!");
 					denaOndo=false;
 				}
 				if(galdera.length < 10){
+					denaOndo=false;
 					alert("Galderaren luzeera gutxienez 10 karakterekoa izan behar da!");
 				}
 				//EMAIL-A KONPROBATU
-				return denaOndo;
-			}
+				if(!(/^([a-z]{2,50})([0-9]{3})@ikasle\.ehu\.eus$/).test(email)){
+					denaOndo=false;
+					alert("email-a ez egokia, adb: jlosanez002@ikasle.ehu.eus");
+				}
+				}
+				return denaOndo
+				
+			})
+			})
+			
 		</script>
 	</head>
 	
 	<body>
-		<form id="galderenF" name="galderenF" action="./proba.php" onSubmit="return konprobatuDena()">
+		<form id="galderenF" name="galderenF" action="./proba.php" ">
 			<fieldset>
 				Email(*): <input type="text" id="email"><br><br><br>
 				Galdera(*): <input type="text" id="galdera"><br><br>
@@ -50,6 +58,9 @@
 				<input type="reset" value="Reset">   <input type="submit" id="igo" value="Igo">
 			</fieldset>
 		</form>
+		<div style="text-align:center">
+				<a  href="./layout.html"> Layout </a>
+			</div>
 	</body>
 
 </html>
