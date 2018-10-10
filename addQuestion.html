@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title> Galdera formularioa </title>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script language="javascript">
+			$(document).ready(function(){
+					$("#irudia").click(function aukeratuArgazkia(){
+					
+					})
+			})
+			function boolean konprobatuDena(){
+				var email = $("#email").val()
+				var galdera = $("#galdera").val()
+				var okerra1 = $("#okerra1").val()
+				var okerra2 = $("#okerra2").val()
+				var okerra3 = $("#okerra3").val()
+				var zailtasuna = $("#zailtasuna").val()
+				var gaia = $("#gaia").val()
+				var denaOndo = true;
+				if (email.length == 0||galdera.length == 0||okerra1.length == 0||okerra2.length == 0||okerra3.length == 0||zailtasuna.length == 0||gaia.length == 0){
+					alert("(*) ikurra duten atalak nahitaez bete behar dira!");
+					denaOndo=false;
+				}
+				if (parseInt(zailtasuna)<0 || parseInt(zailtasuna)>5 || (parseFloat(zailtasuna))%1 != 0){
+					alert("Zailtasuna 0-tik 5-erako osokoa izan behar da!");
+					denaOndo=false;
+				}
+				if(galdera.length < 10){
+					alert("Galderaren luzeera gutxienez 10 karakterekoa izan behar da!");
+				}
+				//EMAIL-A KONPROBATU
+				return denaOndo;
+			}
+		</script>
+	</head>
+	
+	<body>
+		<form id="galderenF" name="galderenF" action="./proba.php" onSubmit="return konprobatuDena()">
+			<fieldset>
+				Email(*): <input type="text" id="email"><br><br><br>
+				Galdera(*): <input type="text" id="galdera"><br><br>
+				Erantzun zuzena(*): <input type="text" id="zuzena"><br><br>
+				Erantzun okerra 1(*): <input type="text" id="okerra1"><br><br>
+				Erantzun okerra 2(*): <input type="text" id="okerra2"><br><br>
+				Erantzun okerra 3(*): <input type="text" id="okerra3"><br><br><br>
+				Zailtasuna(*): <input type="text" id="zailtasuna"><br><br>
+				Gaia(*): <input type="text" id="gaia"><br><br>
+				Irudia: <input type="button" id="irudia" value="Aukeratu argazkia"><br><br>
+				<input type="reset" value="Reset">   <input type="submit" id="igo" value="Igo">
+			</fieldset>
+		</form>
+	</body>
+
+</html>
