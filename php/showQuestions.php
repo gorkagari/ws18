@@ -25,13 +25,13 @@
 			$p_text = 'Errore bat egon da';
 			exit;
 		}else{
-			$sql = "SELECT email, galdera, zuzena, okerra1, okerra2, okerra3, zailtasuna, gaia FROM questions";
+			$sql = "SELECT id, email, galdera, zuzena, okerra1, okerra2, okerra3, zailtasuna, gaia FROM questions";
 			$result = $esteka->query($sql);
 
 			if ($result->num_rows > 0) {
 			// output data of each row
 				while($row = $result->fetch_assoc()) {
-					echo "<br> Email: ". $row["email"]. " - Galdera: ". $row["galdera"]. " - Zuzena: ". $row["zuzena"]. " - Okerra1: ". $row["okerra1"]. " - Okerra2: ". $row["okerra2"]. " - Okerra3: ". $row["okerra3"]. " - Zailtasuna: ". $row["zailtasuna"]. " - Gaia: ". $row["gaia"] . "<br>";
+					echo "<br>". $row["id"]. " -Email: ". $row["email"]. " - Galdera: ". $row["galdera"]. " - Zuzena: ". $row["zuzena"]. " - Okerra1: ". $row["okerra1"]. " - Okerra2: ". $row["okerra2"]. " - Okerra3: ". $row["okerra3"]. " - Zailtasuna: ". $row["zailtasuna"]. " - Gaia: ". $row["gaia"] . "<br>";
 				}
 			} else {
 				echo "0 results";
