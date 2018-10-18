@@ -42,7 +42,7 @@
 		mysqli_close($esteka);	
 	?>
 			<div style="text-align:center">
-				<a  href="./layout.html"> Layout </a>
+				<a  href="../layout.html"> Layout </a>
 			</div>
 			<br></br>
 			
