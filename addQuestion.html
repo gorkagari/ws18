@@ -32,7 +32,7 @@
 				//EMAIL-A KONPROBATU
 				if(!(/^([a-z]{2,50})([0-9]{3})@ikasle\.ehu\.eus$/).test(email)){
 					denaOndo=false;
-					alert("email-a ez egokia, adb: jlosanez002@ikasle.ehu.eus");
+					alert("email-a ez da egokia, patroia: xxxxxnnn@ikasle.ehu.eus, non xxxxx=letrak eta nnn=hiru zenbaki");
 				}
 				}
 				return denaOndo
@@ -44,7 +44,7 @@
 	</head>
 	
 	<body>
-		<form id="galderenF" name="galderenF" method="post" action="./addQuestion.php" ">
+		<form id="galderenF" name="galderenF" method="post" action="./php/addQuestion.php" ">
 			<fieldset>
 				Email(*): <input type="text" name="email" id="email"><br><br><br>
 				Galdera(*): <input type="text" name="galdera" id="galdera"><br><br>
