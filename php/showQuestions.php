@@ -5,6 +5,14 @@
 	<title> MySQL konexioa </title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	
+	<style>
+		img{
+			display: block;
+			margin-left: auto;
+			margin-right: auto;
+		}
+	</style>
+	
 </head>
 <body>
 	<?php include 'dbkonfiguratu.php';
@@ -18,7 +26,7 @@
 			exit;
 		}else{
 			$sql = "SELECT email, galdera, zuzena, okerra1, okerra2, okerra3, zailtasuna, gaia FROM questions";
-			$result = $conn->query($sql);
+			$result = $esteka->query($sql);
 
 			if ($result->num_rows > 0) {
 			// output data of each row
@@ -33,8 +41,13 @@
 		// Konexioa itxi
 		mysqli_close($esteka);	
 	?>
-			<a  href="../layout.html"> Itzuli menura </a>
-	</div>
+			<div style="text-align:center">
+				<a  href="./layout.html"> Layout </a>
+			</div>
+			<br></br>
+			
+			
+	
 </body>
 </html>
 
