@@ -9,7 +9,7 @@
 			if ($local){
 				$zerbitzaria = "localhost";
 				$erabiltzailea = "id7193466_josugorka";
-				$gakoa = "porfinputointernet5semanas_";
+				$gakoa = "";
 				$db = "id7193466_quiz";
 			}else{
 				$zerbitzaria = "localhost";
