@@ -5,9 +5,8 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 		<script language="javascript">
 			$(document).ready(function(){
-					$("#irudia").click(function aukeratuArgazkia(){
 					
-					})
+					
 					$("#galderenF").submit(function  konprobatuDena(){
 				var email = $("#email").val()
 				var galdera = $("#galdera").val()
@@ -41,10 +40,27 @@
 			})
 			
 		</script>
+		<script type='text/javascript'>
+			function preview_image(event) 
+			{
+				var reader = new FileReader();
+				reader.onload = function(){
+					var output = document.getElementById('output_image');
+					output.src = reader.result;
+				}
+				reader.readAsDataURL(event.target.files[0]);
+			}
+</script>
+		<style>
+			#output_image
+			{
+			 max-width:300px;
+			}
+		</style>
 	</head>
 	
 	<body>
-		<form id="galderenF" name="galderenF" method="post" action="./php/addQuestion.php" ">
+		<form id="galderenF" name="galderenF" method="post" action="./php/addQuestionWithImage.php" enctype="multipart/form-data">
 			<fieldset>
 				Email(*): <input type="text" name="email" id="email"><br><br><br>
 				Galdera(*): <input type="text" name="galdera" id="galdera"><br><br>
@@ -54,8 +70,10 @@
 				Erantzun okerra 3(*): <input type="text" name="okerra3" id="okerra3"><br><br><br>
 				Zailtasuna(*): <input type="text" name="zailtasuna" id="zailtasuna"><br><br>
 				Gaia(*): <input type="text" name="gaia" id="gaia"><br><br>
-				Irudia: <input type="button" name="irudia" id="irudia" value="Aukeratu argazkia"><br><br>
+				Irudia: <input type="file" name="irudia" id="irudia" accept="image/*" onchange="preview_image(event)">
+				<img id="output_image"/><br><br>
 				<input type="reset" value="Reset">   <input type="submit" id="igo" value="Igo">
+				
 			</fieldset>
 		</form>
 		<div style="text-align:center">
