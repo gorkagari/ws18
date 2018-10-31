@@ -34,12 +34,8 @@
 				while($row = $result->fetch_assoc()) {
 					echo "<br>". $row["id"]. " -Email: ". $row["email"]. " - Galdera: ". $row["galdera"]. " - Zuzena: ". $row["zuzena"]. " - Okerra1: ". $row["okerra1"]. " - Okerra2: ". $row["okerra2"]. " - Okerra3: ". $row["okerra3"]. " - Zailtasuna: ". $row["zailtasuna"]. " - Gaia: ". $row["gaia"] ."<br>" ;
 					$code_base64 = $row["irudia"];
-					if($code_base64 != null){
-						echo "Irudia:";
-						echo '<img src="data:image/jpeg;base64,'. $code_base64 .'"/>';echo "<br>";
-					}else{
-						echo "Irudia: ez dago irudirik. <br>";
-					}
+					echo "Irudia:";
+					echo '<img src="data:image/jpeg;base64,'. $code_base64 .'"/>';echo "<br>";
 				}
 			} else {
 				echo "0 results";
@@ -50,7 +46,7 @@
 		mysqli_close($esteka);	
 	?>
 			<div style="text-align:center">
-				<a  href="../layout.html"> Layout </a>
+				<a  href="../layout.html"> Menura itzuli </a>
 			</div>
 			<br></br>
 			
