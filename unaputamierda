@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title> Galdera formularioa </title>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script language="javascript">
+			$(document).ready(function(){
+					
+					
+					$("#erregF").submit(function  konprobatuDena(){
+				var email = $("#email").val()
+				var deitura = $("#deitura").val()
+				var pasahitza = $("#pasahitza").val()
+				var pasahitza2 = $("#pasahitza2").val()
+			
+				var denaOndo = true;
+				if (email.length == 0||deitura.length == 0||pasahitza.length == 0||pasahitza2.length == 0){
+					alert("(*) ikurra duten atalak nahitaez bete behar dira!");
+					denaOndo=false;
+				}else{
+				//DEITURA BEGIRATU 
+				//if(!(/^([A-Z]{1})([a-z]{2,50})([0-9]{3})@ikasle\.ehu\.eus$/).test(email)){
+					//denaOndo=false;
+					//alert("deiturak ez dira egokiak");
+				//}
+				
+				if(pasahitza.length < 8){
+					denaOndo=false;
+					alert("Pasahitzaren luzeera gutxienez 8 karakterekoa izan behar da!");
+				}
+			
+				//EMAIL-A KONPROBATU
+				if(!(/^([a-z]{2,50})([0-9]{3})@ikasle\.ehu\.eus$/).test(email)){
+					denaOndo=false;
+					alert("email-a ez da egokia, patroia: xxxxxnnn@ikasle.ehu.eus, non xxxxx=letrak eta nnn=hiru zenbaki");
+				}
+				}
+				return denaOndo
+				
+			})
+			})
+			
+		</script>
+
+	</head>
+	
+	<body>
+		<form id="erregF" name="erregF" method="post" action="./php/addQuestionWithImage.php" enctype="multipart/form-data">
+			<fieldset>
+				Email(*): <input type="text" name="email" id="email"><br><br><br>
+				Deitura(*): <input type="text" name="deitura" id="deitura"><br><br>
+				Pasahitza(*): <input type="password" name="pasahitza" id="pasahitza"><br><br>
+				Pasahitza errepikatu(*): <input type="password" name="pasahitza2" id="pasahitza2"><br><br>
+				<input type="reset" value="Reset">   <input type="submit" id="igo" value="Igo">
+				
+			</fieldset>
+		</form>
+		<div style="text-align:center">
+				<a  href="./layout.html"> Layout </a>
+			</div>
+	</body>
+
+</html>
