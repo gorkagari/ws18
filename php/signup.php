@@ -18,7 +18,7 @@
 				Pasahitza(*): <input type="password" name="pasahitza" id="pasahitza"><br><br>
 				Pasahitza errepikatu(*): <input type="password" name="pasahitza2" id="pasahitza2"><br><br>
 				Argazkia: <input type="file" name="argazkia" id="argazkia" accept="image/*"><br><br>
-				<input type="reset" value="Reset">   <input type="submit" id="igo" value="Igo">
+				<input type="reset" value="Reset">   <input type="submit" id="igo" value="SignUp">
 				
 			</fieldset>
 		</form>

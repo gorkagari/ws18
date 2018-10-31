@@ -15,7 +15,7 @@
 			<fieldset>
 				Email: <input type="text" name="email" id="email"><br><br><br>
 				Pasahitza: <input type="password" name="pasahitza" id="pasahitza"><br><br>
-				<input type="reset" value="Reset">   <input type="submit" id="igo" value="Igo">
+				<input type="reset" value="Reset">   <input type="submit" id="igo" value="LogIn">
 				
 			</fieldset>
 		</form>
@@ -30,7 +30,7 @@
 <?php include 'dbkonfiguratu.php';
 		function redirect(){
 		   echo "<script type='text/javascript'>
-					window.location.href = '../layout.html';
+					window.location.href = './layout.php?email=$_POST[email]';
 				</script>";
 		   die();
 		}

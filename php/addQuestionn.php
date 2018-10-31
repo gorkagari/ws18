@@ -62,10 +62,12 @@
 		</style>
 	</head>
 	
+	<?php $email = $_GET['email']; ?>
+	
 	<body>
-		<form id="galderenF" name="galderenF" method="post" action="./addQuestionn.php" enctype="multipart/form-data">
+		<form id="galderenF" name="galderenF" method="post" action="./addQuestionn.php?email=<?php echo $email; ?>" enctype="multipart/form-data">
 			<fieldset>
-				Email(*): <input type="text" name="email" id="email"><br><br><br>
+				Email(*): <?php echo $email ?> <input type="hidden" name="email" id="email" value="<?php echo $email; ?>" ><br><br><br>
 				Galdera(*): <input type="text" name="galdera" id="galdera"><br><br>
 				Erantzun zuzena(*): <input type="text" name="zuzena" id="zuzena"><br><br>
 				Erantzun okerra 1(*): <input type="text" name="okerra1" id="okerra1"><br><br>
@@ -80,11 +82,12 @@
 			</fieldset>
 		</form>
 		<div style="text-align:center">
-			<a  href="./showQuestionsWithImages.php"> Datu basea ikusi </a><br></br>
-			<a  href="./addQuestionn.php"> Galdera berri bat sartu </a><br></br>
-			<a  href="../layout.html"> Menura itzuli </a>
+			<a  href="./showQuestionsWithImages.php?email=<?php echo $email ?>"> Datu basea ikusi </a><br></br>
+			<a  href="./addQuestionn.php?email=<?php echo $email ?>"> Galdera berri bat sartu </a><br></br>
+			<a  href="./layout.php?email=<?php echo $email ?>"> Menura itzuli </a>
 			</div>
 	</body>
+	
 
 </html>
 
