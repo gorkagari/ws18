@@ -11,13 +11,14 @@
 				
 						var email = $("#email").val()
 						var galdera = $("#galdera").val()
+						var zuzena = $("#zuzena").val()
 						var okerra1 = $("#okerra1").val()
 						var okerra2 = $("#okerra2").val()
 						var okerra3 = $("#okerra3").val()
 						var zailtasuna = $("#zailtasuna").val()
 						var gaia = $("#gaia").val()
 						var denaOndo = true;
-						if (email.length == 0||galdera.length == 0||okerra1.length == 0||okerra2.length == 0||okerra3.length == 0||zailtasuna.length == 0||gaia.length == 0){
+						if (email.length == 0||galdera.length == 0|| zuzena.length == 0||okerra1.length == 0||okerra2.length == 0||okerra3.length == 0||zailtasuna.length == 0||gaia.length == 0){
 							alert("(*) ikurra duten atalak nahitaez bete behar dira!");
 							denaOndo=false;
 						}else{
@@ -92,9 +93,33 @@
 </html>
 
 <?php include 'dbkonfiguratu.php';
+	function xmlSortu(){
+		$xml = simplexml_load_file('../questions.xml') or die("Error: Cannot create XML object");
+		$assessmentItem = $xml -> addChild('assessmentItem');
+		$assessmentItem -> addAttribute('author',$_POST['email']);
+		$assessmentItem -> addAttribute('subject',$_POST['gaia']);
+		
+		$itemBody = $assessmentItem -> addChild('itemBody');
+		$itemBody -> addChild('p',$_POST['galdera']);
+		
+		$correctResponse = $assessmentItem -> addChild('correctResponse');
+		$correctResponse -> addChild('value',$_POST['zuzena']);
+		
+		$incorrectResponses = $assessmentItem -> addChild('incorrectResponses');
+		$incorrectResponses -> addChild('value',$_POST['okerra1']);
+		$incorrectResponses -> addChild('value',$_POST['okerra2']);
+		$incorrectResponses -> addChild('value',$_POST['okerra3']);
+		$xml-> asXML('../questions.xml');
+		
+		if($xml){
+			echo "<br><div style='text-align:center'> <a  href='./showQuestionsXML.php?email=$_POST[email]'> Show Questions XML </a></div>";
+		}else{
+			echo " XML errorea eman du ";
+		}
+	}
 	function konprobatuParametroak(){
 		$denaOndo = true;
-		if (strlen($_POST['email']) == 0||strlen($_POST['galdera']) == 0||strlen($_POST['okerra1']) == 0||strlen($_POST['okerra2']) == 0||strlen($_POST['okerra3']) == 0||strlen($_POST['zailtasuna']) == 0||strlen($_POST['gaia']) == 0){
+		if (strlen($_POST['email']) == 0||strlen($_POST['galdera']) == 0||strlen($_POST['zuzena']) == 0||strlen($_POST['okerra1']) == 0||strlen($_POST['okerra2']) == 0||strlen($_POST['okerra3']) == 0||strlen($_POST['zailtasuna']) == 0||strlen($_POST['gaia']) == 0){
 			$denaOndo=false;
 			echo "Atal guztiak bete.";
 		}else{
@@ -122,7 +147,6 @@
 				$p_text = 'Errore bat egon da konexioarekin.';
 				exit;
 			}else{
-				$p_text = 'Konexioa ezartzen...';
 				$irudia = $_FILES["irudia"]["tmp_name"];
 				if(!$irudia){
 					$irudia = "../images/galderaikurra.png";
@@ -134,13 +158,12 @@
 					
 			}
 			if($sql){
-				$j_text = 'Ondo joan da.';
+				$j_text = 'Datu basearen atzipena ondo joan da.';
+				xmlSortu();
 			}else{
 				$j_text = 'Errore bat egon da datuak igotzerakoan.';
 			}
 			$dom = new DOMDocument('1.0', 'utf-8');
-			$h = $dom->createElement('h2', $p_text);//Create new <p> tag with text
-			$dom->appendChild($h);//Add the p tag to document
 			$j = $dom->createElement('h2', $j_text);//Create new <p> tag with text
 			$dom->appendChild($j);//Add the p tag to document
 			echo $dom->saveXML();

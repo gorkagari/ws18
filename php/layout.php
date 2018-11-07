@@ -49,6 +49,8 @@
 		<span><a href='/quizzes'>Quizzes</a></span>
 		<span><a href='./addQuestionn.php?email=<?php echo $email ?>'>Galdera berria sortu</a></span>
 		<span><a href='./showQuestionsWithImages.php?email=<?php echo $email ?>'>Datu basea ikusi</a></span>
+		<span><a href='../questions.xml'>Questions XML (.xml)</a></span>
+		<span><a href='./showQuestionsXML.php?email=<?php echo $email ?>'>Show Questions XML (PHP)</a></span>
 		<span><a href='./credits.php?email=<?php echo $email ?>'>Credits</a></span>
 	</nav>
     <section class="main" id="s1">
