@@ -22,9 +22,8 @@
 		
 		<script language="javascript">
 			
-				setInterval(nireGalderaKop,20000);
-			
-				var nireGalderaKopurua;
+				setInterval(galderaKopTotala,2000);
+				setInterval(nireKopurua,2000);
 				
 				xhro = new XMLHttpRequest();
 				xhro.onreadystatechange = function(){
@@ -44,22 +43,21 @@
 						var kont = 0;
 						while (zerrenda[i]){
 							if(zerrenda[i].getAttribute('author') == "<?php echo $email ?>"){
-								kont++;
+								kont = kont+1;
 							}
-							i++;
+							i=i+1;
 						}
-						nireGalderaKopurua = kont;
+						document.getElementById("nireGalderak").innerHTML= kont;
 					}
 				}
 				
 				xhro2 = new XMLHttpRequest();
 				xhro2.onreadystatechange = function(){
 					if (xhro2.readyState==4){
-						nireKopurua();
 						var xml = xhro2.responseXML;
 						var zerrenda = xml.getElementsByTagName('assessmentItem');
 						var kopuruTotala = zerrenda.length;
-						document.getElementById("galdKop").innerHTML= "<?php echo $email?> -ek igotako galderak/guztira igotakoak:"+nireGalderaKopurua+"/"+kopuruTotala;
+						document.getElementById("galderakGuztira").innerHTML= kopuruTotala;
 					}
 				}
 	
@@ -69,7 +67,7 @@
 					xhro3.send(null);
 				}
 				
-				function nireGalderaKop(){
+				function galderaKopTotala(){
 					xhro2.open("GET","../questions.xml", true);
 					xhro2.send(null);
 				}
@@ -169,13 +167,12 @@
 			</fieldset>
 		</form>
 		
-		<div id="galdKop" style="text-align:center">
-		</div><br>
+		<div style="text-align:center"><?php echo $email?>-ek sortutako galdera kopurua/galdera kopuru totala: <span id="nireGalderak"></span>/<span id="galderakGuztira"></span></div><br>
 		
 		<div style="text-align:center">
 			<a  href="./showQuestionsWithImages.php?email=<?php echo $email ?>"> Datu basea ikusi </a><br></br>
 			<a  href="./layout.php?email=<?php echo $email ?>"> Menura itzuli </a>
-		</div>
+		</div><br>
 		<div id="fb" style="text-align:center">
 		</div><br>
 		<div id="xmlIkusi" style="text-align:center">
