@@ -22,8 +22,8 @@
 		
 		<script language="javascript">
 			
-				setInterval(galderaKopTotala,2000);
-				setInterval(nireKopurua,2000);
+				setInterval(galderaKopTotala,20000);
+				setInterval(nireKopurua,20000);
 				
 				xhro = new XMLHttpRequest();
 				xhro.onreadystatechange = function(){
