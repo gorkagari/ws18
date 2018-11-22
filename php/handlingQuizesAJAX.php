@@ -1,7 +1,7 @@
+<?php header("Control-cache: no-store, no-cache, must-revalidate");$email = $_GET['email']; ?>
 <!DOCTYPE html>
 <html>
 	<head>
-		<?php $email = $_GET['email']; ?>
 		<title> Galdera formularioa </title>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 		<script language="javascript">
