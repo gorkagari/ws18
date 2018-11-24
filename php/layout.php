@@ -48,6 +48,7 @@
 		<span><a href='layout.php?email=<?php echo $email ?>'>Home</a></span>
 		<span><a href='/quizzes'>Quizzes</a></span>
 		<span><a href='./handlingQuizesAJAX.php?email=<?php echo $email ?>'>Galdera berria sortu</a></span>
+		<span><a href='./getQuestionWZ.php?email=<?php echo $email ?>'>Galdera IDz bilatu</a></span>
 		<span><a href='./showQuestionsWithImages.php?email=<?php echo $email ?>'>Datu basea ikusi</a></span>
 		<span><a href='../questions.xml'>Questions XML (.xml)</a></span>
 		<span><a href='./showQuestionsXML.php?email=<?php echo $email ?>'>Show Questions XML (PHP)</a></span>

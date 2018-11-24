@@ -62,49 +62,98 @@
 			}
 			return $denaOndo;
 		}
+		
+		
+		
+		function konprobatuErabiltzailea(){
+			require_once('../lib/nusoap.php');
+			require_once('../lib/class.wsdlcache.php');
+			$ondo= false;
+			$soapclient = new nusoap_client('http://ehusw.es/rosa/webZerbitzuak/egiaztatuMatrikula.php?wsdl','true');
+			$result = $soapclient->call('egiaztatuE',array('x'=>$_POST['email']));
+			
+			if ($result=='BAI'){
+				$ondo= true;
+			}
+			else{
+				echo "Ez da ehu-ko erabiltzaile bat.";}
+			
+			return $ondo;
+			
+			
+		}
+
+		function konprobatuPasahitza(){
+			require_once('../lib/nusoap.php');
+			require_once('../lib/class.wsdlcache.php');
+			$ondo= false;
+			$soapclient = new nusoap_client('http://localhost/wsgg/php/egiaztatuPasahitza.php?wsdl','true');
+			$result = $soapclient->call('egiaztatu',array('x'=>$_POST['pasahitza'],'y'=>1010));
+			
+			/*echo '<h2>Request</h2><pre>'.htmlspecialchars($soapclient->request, ENT_QUOTES).'</pre>';
+			echo '<h2>Response</h2><pre>'.htmlspecialchars($soapclient->response,ENT_QUOTES).'</pre>';
+			echo '<h2>Debug</h2>';
+			echo '<pre>' . htmlspecialchars($soapclient->debug_str, ENT_QUOTES) . '</pre>';*/
+			
+			if ($result=="BALIOZKOA"){
+				$ondo= true;
+			}elseif($result=="BALIOGABEA"){
+				echo "Pentsatu pasahitz konplexuago bat. Hori sinpleegia da.";
+			}elseif($result=="ZERBITZURIK GABE"){
+				echo "Autentifikazio errorea";
+			}else{
+				echo "Fatal-error, result-en balioa:";
+				echo $result;
+			}
+			
+			return $ondo;
+		}
+		
 		if (isset($_POST['email'])){
 			if(konprobatuParametroak()){
-				$esteka = mysqli_connect($zerbitzaria, $erabiltzailea, $gakoa, $db);
-				// ("localhost", "root", "", “proba");
-				if (!$esteka){
-					echo "Hutsegitea MySQLra konetatzerakoan";
-					echo "errno depurazio akatsa: " .mysqli_connect_errno().PHP_EOL;
-					echo "error depurazio akatsa: " .mysqli_connect_error().PHP_EOL;
-					exit;
-				}else{
-					$eskaera = "SELECT * FROM user WHERE email='$_POST[email]'";
-					$result = $esteka->query($eskaera);
-					if($result->num_rows!=0){
-						echo "Email hori jadanik erregistraturik dago.";
-						exit;
-					}else{
-						$irudia = $_FILES["argazkia"]["tmp_name"];
-						if(!$irudia){
-							$irudia = "../images/galderaikurra.png";
+				if(konprobatuErabiltzailea() && konprobatuPasahitza()){
+				
+						$esteka = mysqli_connect($zerbitzaria, $erabiltzailea, $gakoa, $db);
+						// ("localhost", "root", "", “proba");
+						if (!$esteka){
+							echo "Hutsegitea MySQLra konetatzerakoan";
+							echo "errno depurazio akatsa: " .mysqli_connect_errno().PHP_EOL;
+							echo "error depurazio akatsa: " .mysqli_connect_error().PHP_EOL;
+							exit;
+						}else{
+							$eskaera = "SELECT * FROM user WHERE email='$_POST[email]'";
+							$result = $esteka->query($eskaera);
+							if($result->num_rows!=0){
+								echo "Email hori jadanik erregistraturik dago.";
+								exit;
+							}else{
+								$irudia = $_FILES["argazkia"]["tmp_name"];
+								if(!$irudia){
+									$irudia = "../images/galderaikurra.png";
+								}
+								$irudia_data = file_get_contents($irudia);
+								$encoded_image = base64_encode($irudia_data);
+								$katea = "INSERT INTO user VALUES ('$_POST[email]','$_POST[deitura]','$_POST[pasahitza]','$encoded_image')";
+								$sql = mysqli_query($esteka, $katea);
+							}
+							
 						}
-						$irudia_data = file_get_contents($irudia);
-						$encoded_image = base64_encode($irudia_data);
-						$katea = "INSERT INTO user VALUES ('$_POST[email]','$_POST[deitura]','$_POST[pasahitza]','$encoded_image')";
-						$sql = mysqli_query($esteka, $katea);
-					}
-					
+						if($sql){
+							$j_text = 'Erabiltzailea erregistratu da.';
+							redirect();
+						}else{
+							$j_text = 'Errorea egon da. Erabiltzailea ezin izan da erregistratu.';
+						}
+						$dom = new DOMDocument('1.0', 'utf-8');
+						$j = $dom->createElement('h2', $j_text);//Create new <p> tag with text
+						$dom->appendChild($j);//Add the p tag to document
+						echo $dom->saveXML();
+						// Konexioa itxi
+						mysqli_close($esteka);
 				}
-				if($sql){
-					$j_text = 'Erabiltzailea erregistratu da.';
-					redirect();
-				}else{
-					$j_text = 'Errorea egon da. Erabiltzailea ezin izan da erregistratu.';
-				}
-				$dom = new DOMDocument('1.0', 'utf-8');
-				$j = $dom->createElement('h2', $j_text);//Create new <p> tag with text
-				$dom->appendChild($j);//Add the p tag to document
-				echo $dom->saveXML();
-				// Konexioa itxi
-				mysqli_close($esteka);
 			}else{
 				echo " Parametro ez egokiak jaso dira.";
 			}
-			
 		}
 	?>
 
