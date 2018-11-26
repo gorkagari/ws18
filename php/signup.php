@@ -8,14 +8,129 @@
 				color: red;
 			}
 		</style>
+		
+		<script type='text/javascript'> 
+		
+		var erabiltzaileZuzena = false;
+		var pasahitzaZuzena = false;
+		
+		xhro = new XMLHttpRequest();
+		xhro.onreadystatechange = function(){
+			if (xhro.readyState==4){
+				var emaitza = xhro.responseText.trim();
+				if (emaitza=="ONDO"){
+					document.getElementById("divErab").innerHTML= "Erabiltzailea hori matrikulaturik dago, zuzena da.";
+					erabiltzaileZuzena = true;
+				}else{
+					document.getElementById("divErab").innerHTML= "Erabiltzaile hori ez dago matrikulatuta, ez da egokia.";
+					erabiltzaileZuzena = false;
+				}
+			}
+		}
+		
+		xhro2 = new XMLHttpRequest();
+		xhro2.onreadystatechange = function(){
+			if (xhro2.readyState==4){
+				var emaitza = xhro2.responseText.trim();
+				if (emaitza=="ONDO"){
+					document.getElementById("divPas").innerHTML= "Pasahitza egokia. (8 karaktere gutxienez)";
+					pasahitzaZuzena = true;
+				}else if(emaitza=="GAIZKI"){
+					document.getElementById("divPas").innerHTML= "Pasahitza hau arruntegia da, probatu beste batekin. (8 karaktere gutxienez)";
+					pasahitzaZuzena = false;
+				}else{
+					document.getElementById("divPas").innerHTML= "Zerbitzu errorea.";
+					pasahitzaZuzena = false;
+				}
+			}
+		}
+		
+		setInterval(setPHP,1000);
+		setInterval(setPHP2,1000)
+		
+		
+		
+		$(document).ready(function(){
+			$("form").submit(function(){
+				ondo=false;
+				
+				if(konprobatuParametroak() && erabiltzaileZuzena){
+					ondo = true;
+				}
+				return ondo;
+			});
+		});
+		
+		
+		
+		function  konprobatuParametroak(){
+							
+							var email = $("#email").val()
+							var deitura = $("#deitura").val()
+							var pasahitza = $("#pasahitza").val()
+							var pasahitza2 = $("#pasahitza2").val()
+							var denaOndo = true;
+							if (email.length == 0||deitura.length == 0|| pasahitza.length == 0||pasahitza2.length == 0){
+								alert("(*) ikurra duten atalak nahitaez bete behar dira!");
+								denaOndo=false;
+							}else{
+							if (pasahitza!=pasahitza2){
+								alert("Pasahitzak ez dira berdinak.");
+								denaOndo=false;
+							}
+							
+							if(pasahitza.length < 8){
+								denaOndo=false;
+								alert("Pasahitzak gutxienez 8 digitu izan behar ditu.");
+							}
+							
+							//DEITURA-A KONPROBATU
+							if(!(/([A-Z]{1}[a-z]+\s)([A-Z]{1}[a-z]+(\s)?)+$/).test(deitura)){
+								denaOndo=false;
+								alert("Deiturako izenak hizki larriz hasi behar dira eta hutsuneak izan behar dituzte haien artean.");
+							}
+							
+							//EMAIL-A KONPROBATU
+							if(!(/^([a-z]{2,50})([0-9]{3})@ikasle\.ehu\.eus$/).test(email)){
+								denaOndo=false;
+								alert("email-a ez da egokia, patroia: xxxxxnnn@ikasle.ehu.eus, non xxxxx=letrak eta nnn=hiru zenbaki");
+							}
+							}
+							return denaOndo;
+		}
+		
+	
+		function setPHP(){
+			var email = $("#email").val()
+			if (email){
+				xhro.open("GET", "egiaztatuErabiltzaileaErregistroan.php?email="+email, true);
+				xhro.send();
+			}else{
+					document.getElementById("divErab").innerHTML= "";
+			}
+		}
+		
+		function setPHP2(){
+			var pasahitza = $("#pasahitza").val()
+			if (pasahitza){
+				xhro2.open("GET", "egiaztatuPasahitzaErregistroan.php?pasahitza="+pasahitza, true);
+				xhro2.send();
+			}else{
+					document.getElementById("divPas").innerHTML= "";
+			}
+		}
+		
+		
+		
+		</script>
 	</head>
 	
 	<body>
 		<form id="signupF" name="signupF" method="post" action="./signup.php" enctype="multipart/form-data">
 			<fieldset>
-				Email(*): <input type="text" name="email" id="email"><br><br><br>
+				Email(*): <input type="text" name="email" id="email"><div id="divErab"></div><br><br><br>
 				Deitura(*): <input type="text" name="deitura" id="deitura"><br><br>
-				Pasahitza(*): <input type="password" name="pasahitza" id="pasahitza"><br><br>
+				Pasahitza(*): <input type="password" name="pasahitza" id="pasahitza"><div id="divPas"></div><br><br>
 				Pasahitza errepikatu(*): <input type="password" name="pasahitza2" id="pasahitza2"><br><br>
 				Argazkia: <input type="file" name="argazkia" id="argazkia" accept="image/*"><br><br>
 				<input type="reset" value="Reset">   <input type="submit" id="igo" value="SignUp">
