@@ -1,4 +1,19 @@
-<?php header("Control-cache: no-store, no-cache, must-revalidate");$email = $_GET['email']; ?>
+<?php  header("Control-cache: no-store, no-cache, must-revalidate"); ?>
+<?php 
+include 'segurtasuna.php';
+if($sesioMota == 'notLogged'){
+	echo "<script type='text/javascript'>
+					window.location.href = './layoutNotLogged.php';
+				</script>";
+		   die();
+}elseif($sesioMota == 'admin'){
+	echo "<script type='text/javascript'>
+					window.location.href = './layout.php';
+				</script>";
+		   die();
+}
+$email = $_SESSION['email'];
+ ?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -172,8 +187,7 @@
 		<div style="text-align:center"><?php echo $email?>-ek sortutako galdera kopurua/galdera kopuru totala: <span id="nireGalderak"></span>/<span id="galderakGuztira"></span></div><br>
 		
 		<div style="text-align:center">
-			<a  href="./showQuestionsWithImages.php?email=<?php echo $email ?>"> Datu basea ikusi </a><br></br>
-			<a  href="./layout.php?email=<?php echo $email ?>"> Menura itzuli </a>
+			<a  href="./layout.php"> Menura itzuli </a>
 		</div><br>
 		<div id="fb" style="text-align:center">
 		</div><br>

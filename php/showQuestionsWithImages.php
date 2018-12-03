@@ -1,3 +1,20 @@
+<?php
+include 'segurtasuna.php';
+if($sesioMota == 'notLogged'){
+	session_destroy();
+	echo "<script type='text/javascript'>
+					window.location.href = '../layoutNotLogged.html';
+				</script>";
+		   die();
+}elseif($sesioMota == 'admin'){
+	echo "<script type='text/javascript'>
+					window.location.href = '../layoutNotLogged.html';
+				</script>";
+	die();
+}
+$email = $_SESSION['email'];
+?>
+
 <!DOCTYPE html>
 
 <html>

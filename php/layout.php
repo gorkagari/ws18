@@ -1,4 +1,14 @@
-﻿<!DOCTYPE html>
+﻿<?php
+include 'segurtasuna.php';
+if($sesioMota == 'notLogged'){
+	echo "<script type='text/javascript'>
+				window.location.href = './layoutNotLogged.php';
+			</script>";
+	   die();
+}
+$email = $_SESSION['email'];
+?>
+<!DOCTYPE html>
 <html>
   <head>
     <meta name="tipo_contenido" content="text/html;" http-equiv="content-type" charset="utf-8">
@@ -28,7 +38,7 @@
 			echo "error depurazio akatsa: " .mysqli_connect_error().PHP_EOL;
 			exit;
 		}else{
-			$eskaera = "SELECT * FROM user WHERE email='$_GET[email]'";
+			$eskaera = "SELECT * FROM user WHERE email='$email'";
 			$result = $esteka->query($eskaera);
 			$row = $result->fetch_assoc();
 			$deitura = $row["deitura"];
@@ -36,23 +46,25 @@
 			$irudia_erakutsi = '<img src="data:image/jpeg;base64,'. $irudia_code64 .'" width="30" height="30" />';
 		}
 		mysqli_close($esteka);
-		$email = $_GET['email'];
 	?>
   <body>
   <div id='page-wrap'>
 	<header class='main' id='h1'>
-      <span class="right" ><h4><?php echo $deitura;?> - </h4><?php echo $irudia_erakutsi ?><a href="../layoutnotlogged.html">LogOut</a> </span>
+      <span class="right" ><h4><?php echo $deitura;?> - </h4><?php echo $irudia_erakutsi ?><a href="./layoutnotlogged.php">LogOut</a> </span>
 	<h2>Quiz: crazy questions</h2>
     </header>
 	<nav class='main' id='n1' role='navigation'>
-		<span><a href='layout.php?email=<?php echo $email ?>'>Home</a></span>
-		<span><a href='/quizzes'>Quizzes</a></span>
-		<span><a href='./handlingQuizesAJAX.php?email=<?php echo $email ?>'>Galdera berria sortu</a></span>
-		<span><a href='./getQuestionWZ.php?email=<?php echo $email ?>'>Galdera IDz bilatu</a></span>
-		<span><a href='./showQuestionsWithImages.php?email=<?php echo $email ?>'>Datu basea ikusi</a></span>
-		<span><a href='../questions.xml'>Questions XML (.xml)</a></span>
-		<span><a href='./showQuestionsXML.php?email=<?php echo $email ?>'>Show Questions XML (PHP)</a></span>
-		<span><a href='./credits.php?email=<?php echo $email ?>'>Credits</a></span>
+		<?php
+		echo "<span><a href='layout.php'>Home</a></span>";
+		echo "<span><a href='/quizzes'>Quizzes</a></span>";
+		if($email != 'admin000@ehu.eus'){
+			echo "<span><a href='./handlingQuizesAJAX.php?email=<?php echo $email ?>'>Galdera berria sortu</a></span>";
+		}
+		else{
+			echo "<span><a href='./handlingAccounts.php'>Erabiltzaileak kudeatu</a></span>";
+		}
+		echo "<span><a href='./credits.php'>Credits</a></span>";
+		?>
 	</nav>
     <section class="main" id="s1">
     

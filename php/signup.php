@@ -138,7 +138,7 @@
 			</fieldset>
 		</form>
 		<div style="text-align:center">
-				<a  href="../layoutnotlogged.html"> Menura itzuli</a>
+				<a  href="./layoutnotlogged.php"> Menura itzuli</a>
 			</div>
 	</body>
 	
@@ -248,7 +248,7 @@
 								}
 								$irudia_data = file_get_contents($irudia);
 								$encoded_image = base64_encode($irudia_data);
-								$katea = "INSERT INTO user VALUES ('$_POST[email]','$_POST[deitura]','$_POST[pasahitza]','$encoded_image')";
+								$katea = "INSERT INTO user (email,deitura,pasahitza,argazkia) VALUES ('$_POST[email]','$_POST[deitura]','$_POST[pasahitza]','$encoded_image')";
 								$sql = mysqli_query($esteka, $katea);
 							}
 							

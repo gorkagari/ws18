@@ -1,3 +1,6 @@
+<?php
+include 'segurtasuna.php';
+?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -12,10 +15,10 @@
 		</style>
 	</head>
 	<?php
-		if(isset($_GET['email'])){
-			$link = "./layout.php?email=$_GET[email]";
+		if($sesioMota=='logged' || $sesioMota=='admin'){
+			$link = "./layout.php";
 		}else{
-			$link = "../layoutnotlogged.html";
+			$link = "./layoutnotlogged.php";
 		}
 	?>
 	<body style="background-color:powderblue">

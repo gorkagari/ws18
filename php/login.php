@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -20,7 +21,7 @@
 			</fieldset>
 		</form>
 		<div style="text-align:center">
-			<a  href="../layoutnotlogged.html"> Menura itzuli</a>
+			<a  href="./layoutnotlogged.php"> Menura itzuli</a>
 		</div>
 	</body>
 	
@@ -28,9 +29,15 @@
 
 </html>
 <?php include 'dbkonfiguratu.php';
-		function redirect(){
+		function redirectAdmin(){
 		   echo "<script type='text/javascript'>
-					window.location.href = './layout.php?email=$_POST[email]';
+					window.location.href = './handlingAccounts.php';
+				</script>";
+		   die();
+		}
+		function redirectUser(){
+		   echo "<script type='text/javascript'>
+					window.location.href = './handlingQuizesAJAX.php';
 				</script>";
 		   die();
 		}
@@ -51,9 +58,15 @@
 				}else{
 					$row = $result->fetch_assoc();
 					if(!($row["pasahitza"]===$_POST['pasahitza'])){
+						echo $row["pasahitza"];
 						echo "Pasahitza okerra.";
-					}else{	
-						redirect();
+					}else{
+						$_SESSION['email'] = $_POST['email'];
+						if($_POST['email']=='admin000@ehu.eus'){
+							redirectAdmin();
+						}else{
+							redirectUser();
+						}
 					}
 				}
 			}

@@ -1,3 +1,14 @@
+<?php
+include 'segurtasuna.php';
+if($sesioMota == 'notLogged'){
+	session_destroy();
+	echo "<script type='text/javascript'>
+					window.location.href = '../layoutNotLogged.html';
+				</script>";
+		   die();
+}
+$email = $_SESSION['email'];
+?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -12,12 +23,11 @@
 						border-spacing: 2px;
 					}
 				</style>";
-				$email = $_GET['email'];
 		?>
 	</head>
 	<body>
 			
-		<a href="./layout.php?email=<?php echo $email ?>">Menura itzuli</a>
+		<a href="./layout.php">Menura itzuli</a>
 	</body>
 	<?php
 		$xml = simplexml_load_file('../questions.xml') or die("Error: Cannot create object");

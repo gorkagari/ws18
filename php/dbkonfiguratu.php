@@ -14,7 +14,7 @@
 			}else{
 				$zerbitzaria = "localhost";
 				$erabiltzailea = "root";
-				$gakoa = "";
+				$gakoa = "admin";
 				$db = "quiz";
 			}
 		?>
