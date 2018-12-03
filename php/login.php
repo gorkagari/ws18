@@ -58,7 +58,7 @@
 				}else{
 					$row = $result->fetch_assoc();
 					if(!($row["pasahitza"]===$_POST['pasahitza'])){
-						echo $row["pasahitza"];
+						
 						echo "Pasahitza okerra.";
 					}else{
 						$_SESSION['email'] = $_POST['email'];
