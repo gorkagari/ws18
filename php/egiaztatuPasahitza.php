@@ -4,7 +4,7 @@
 	require_once('../lib/class.wsdlcache.php');
 	//soap_server motako objektua sortzen dugu
 	//$ns="http://localhost/wsgg/egiaztatuPasahitza.php?wsdl";
-	$ns="http://localhost/wsgg/php/egiaztatuPasahitza.php?wsdl";
+	$ns="https://gariweb.000webhostapp.com/azkenEntrega/php/egiaztatuPasahitza.php?wsdl";
 	$server = new soap_server;
 	$server->configureWSDL('egiaztatu',$ns);
 	$server->wsdl->schemaTargetNamespace=$ns;

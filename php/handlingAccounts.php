@@ -98,6 +98,9 @@
 	</head>
 	
 	<body>
+		<div style="text-align: right">
+			<span> Erabiltzailea: <?php echo $_SESSION['email'] ?>        </span>
+		</div>
 		<form id="erabiltzileF" name="erabiltzileF" method="post" action="./addQuestionn.php?email=<?php echo $email; ?>" enctype="multipart/form-data">
 			<fieldset>
 				

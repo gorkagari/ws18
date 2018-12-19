@@ -33,12 +33,7 @@
 				$denaOndo=false;
 				echo "Zailtasun ez egokia.";
 			}
-			//EMAIL-A KONPROBATU
-			$pattern = '/^([a-z]{2,50})([0-9]{3})@ikasle\.ehu\.eus$/';
-			if(!(preg_match($pattern,$_POST['email']))){
-				$denaOndo=false;
-				echo "Email ez egokia.";
-			}
+			
 		}
 				return $denaOndo;
 	}

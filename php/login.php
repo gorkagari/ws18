@@ -20,6 +20,9 @@
 				
 			</fieldset>
 		</form>
+		<div style="text-align:left">
+			<a  href="./pasahitzaBerrezarri.php">Pasahitza ahaztu duzu?</a>
+		</div>
 		<div style="text-align:center">
 			<a  href="./layoutnotlogged.php"> Menura itzuli</a>
 		</div>
@@ -57,8 +60,7 @@
 					exit;
 				}else{
 					$row = $result->fetch_assoc();
-					if(!($row["pasahitza"]===$_POST['pasahitza'])){
-						echo $row["pasahitza"];
+					if(!password_verify($_POST['pasahitza'],$row["pasahitza"] )){
 						echo "Pasahitza okerra.";
 					}else{
 						$_SESSION['email'] = $_POST['email'];

@@ -22,6 +22,13 @@ include 'segurtasuna.php';
 		}
 	?>
 	<body style="background-color:powderblue">
+		<?php
+			if (isset($_SESSION['email'])){
+				echo "<div style='text-align: right'>";
+					echo"<span> Erabiltzailea:"; echo $_SESSION['email'];echo"        </span>";
+				echo "</div>";
+			}
+		?>
 			<h2 style="text-align:center"> Egileak: </h2>
 			<p style="text-align:center"> Gorka Garitazelaia</p>
 			<img src="..\images\Gorila.jpg"  width="150" height="100" alt="Gorka" class="center">

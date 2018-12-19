@@ -1,7 +1,7 @@
 <?php
 	require_once('../lib/nusoap.php');
 			require_once('../lib/class.wsdlcache.php');
-			$soapclient = new nusoap_client('http://localhost/wsgg/php/egiaztatuPasahitza.php?wsdl','true');
+			$soapclient = new nusoap_client('https://gariweb.000webhostapp.com/azkenEntrega/php/egiaztatuPasahitza.php?wsdl','true');
 			$result = $soapclient->call('egiaztatu',array('x'=>$_GET['pasahitza'],'y'=>1010));
 			
 			/*echo '<h2>Request</h2><pre>'.htmlspecialchars($soapclient->request, ENT_QUOTES).'</pre>';

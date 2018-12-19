@@ -1,6 +1,5 @@
-<?php  header("Control-cache: no-store, no-cache, must-revalidate"); ?>
 <?php 
-include 'segurtasuna.php';
+include 'segurtasuna.php'; 
 if($sesioMota == 'notLogged'){
 	echo "<script type='text/javascript'>
 					window.location.href = './layoutNotLogged.php';
@@ -37,8 +36,8 @@ $email = $_SESSION['email'];
 		
 		<script language="javascript">
 			
-				setInterval(galderaKopTotala,20000);
-				setInterval(nireKopurua,20000);
+				setInterval(galderaKopTotala,10000);
+				setInterval(nireKopurua,10000);
 				
 				xhro = new XMLHttpRequest();
 				xhro.onreadystatechange = function(){
@@ -78,12 +77,12 @@ $email = $_SESSION['email'];
 	
 			
 				function nireKopurua(){
-					xhro3.open("GET","../questions.xml", true);
+					xhro3.open("GET","../questions.xml?q="+ new Date().getTime(), true);
 					xhro3.send(null);
 				}
 				
 				function galderaKopTotala(){
-					xhro2.open("GET","../questions.xml", true);
+					xhro2.open("GET","../questions.xml?q="+ new Date().getTime(), true);
 					xhro2.send(null);
 				}
 			
@@ -110,11 +109,7 @@ $email = $_SESSION['email'];
 								denaOndo=false;
 								alert("Galderaren luzeera gutxienez 10 karakterekoa izan behar da!");
 							}
-							//EMAIL-A KONPROBATU
-							if(!(/^([a-z]{2,50})([0-9]{3})@ikasle\.ehu\.eus$/).test(email)){
-								denaOndo=false;
-								alert("email-a ez da egokia, patroia: xxxxxnnn@ikasle.ehu.eus, non xxxxx=letrak eta nnn=hiru zenbaki");
-							}
+							
 							}
 							return denaOndo;
 				}
@@ -131,6 +126,9 @@ $email = $_SESSION['email'];
 									document.getElementById("fb").innerHTML="Galdera gehitu da.";
 									$('#galderenF').trigger("reset");
 									ikusi();
+									nireKopurua();
+									galderaKopTotala();
+									
 							}
 						});
 					}
@@ -166,6 +164,9 @@ $email = $_SESSION['email'];
 	</head>
 	
 	<body>
+		<div style="text-align: right">
+			<span> Erabiltzailea: <?php echo $_SESSION['email'] ?>        </span>
+		</div>
 		<form id="galderenF" name="galderenF" method="post" action="./addQuestionn.php?email=<?php echo $email; ?>" enctype="multipart/form-data">
 			<fieldset>
 				<input type="button" value="Ikusi nire galderak" onclick="ikusi()"> 

@@ -202,7 +202,7 @@
 			require_once('../lib/nusoap.php');
 			require_once('../lib/class.wsdlcache.php');
 			$ondo= false;
-			$soapclient = new nusoap_client('http://localhost/wsgg/php/egiaztatuPasahitza.php?wsdl','true');
+			$soapclient = new nusoap_client('https://gariweb.000webhostapp.com/azkenEntrega/php/egiaztatuPasahitza.php?wsdl','true');
 			$result = $soapclient->call('egiaztatu',array('x'=>$_POST['pasahitza'],'y'=>1010));
 			
 			/*echo '<h2>Request</h2><pre>'.htmlspecialchars($soapclient->request, ENT_QUOTES).'</pre>';
@@ -248,7 +248,8 @@
 								}
 								$irudia_data = file_get_contents($irudia);
 								$encoded_image = base64_encode($irudia_data);
-								$katea = "INSERT INTO user (email,deitura,pasahitza,argazkia) VALUES ('$_POST[email]','$_POST[deitura]','$_POST[pasahitza]','$encoded_image')";
+								$hashed_password = password_hash($_POST['pasahitza'], PASSWORD_DEFAULT);
+								$katea = "INSERT INTO user (email,deitura,pasahitza,argazkia,egoera) VALUES ('$_POST[email]','$_POST[deitura]','$hashed_password','$encoded_image',1)";
 								$sql = mysqli_query($esteka, $katea);
 							}
 							

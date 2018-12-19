@@ -5,7 +5,7 @@
 		<title> konfigurazioa </title>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 		<?php
-			$local = 0; //1 hodeiko datuentzat
+			$local = 1; //1 hodeiko datuentzat
 			if ($local){
 				$zerbitzaria = "localhost";
 				$erabiltzailea = "id7193466_josugorka";
