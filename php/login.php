@@ -60,7 +60,12 @@
 					exit;
 				}else{
 					$row = $result->fetch_assoc();
+<<<<<<< HEAD
 					if(!password_verify($_POST['pasahitza'],$row["pasahitza"] )){
+=======
+					if(!($row["pasahitza"]===$_POST['pasahitza'])){
+						
+>>>>>>> fc9fe8754034c568542a0d7e029ca05fa834df68
 						echo "Pasahitza okerra.";
 					}else{
 						$_SESSION['email'] = $_POST['email'];
